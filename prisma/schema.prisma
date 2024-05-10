@@ -13,15 +13,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
-  email    String  @unique
-  alamat   String  @unique
-  name     String?
-  password String
+model Penghuni {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  email      String       @unique
+  alamat     String       @unique
+  name       String?
+  password   String
+  pengunjung Pengunjung[]
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
-model Pengunjug {
-  id   String  @id @default(auto()) @map("_id") @db.ObjectId
-  name String?
+model Pengunjung {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  name   String?
+  status String?
+
+  penghuniId String?   @db.ObjectId
+  penghuni   Penghuni? @relation(fields: [penghuniId], references: [id])
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
 }

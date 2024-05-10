@@ -1,0 +1,26 @@
+### 
+GET http://localhost:3000/api/v1/penghuni
+###
+GET http://localhost:3000/api/v2/pengunjung
+###
+POST http://localhost:3000/api/v1/pengunjung
+Content-Type: application/json
+
+{
+   "name": "budi",
+   "penghuniId": "663c5194991625b77ad755df"
+}
+
+###
+POST http://localhost:3000/api/v2/register
+Content-Type: application/json
+
+{
+    "email": "yoga.pratama.pangetu@gmail.com",
+    "alamat": "L-21",
+    "name": "yoga",
+    "password": "yogapratama"
+}
+
+
+
