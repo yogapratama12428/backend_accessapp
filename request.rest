@@ -1,5 +1,8 @@
 ### 
 GET http://localhost:3000/api/v1/penghuni
+
+### 
+GET http://localhost:3000/api/v1/penghuni/663dc636f5ee747f584b3b22
 ###
 GET http://localhost:3000/api/v2/pengunjung
 ###
@@ -9,6 +12,14 @@ Content-Type: application/json
 {
    "name": "budi",
    "penghuniId": "663c5194991625b77ad755df"
+}
+
+###
+PUT http://localhost:3000/api/v2/pengunjung/663da56bf5ee747f584b3b14
+Content-Type: application/json
+
+{
+   "status": "ok"
 }
 
 ###

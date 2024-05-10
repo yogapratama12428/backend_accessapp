@@ -17,15 +17,27 @@ app.get("/", async (req, res) => {
   res.send("Hello World!");
 });
 
+
+
 app.get("/api/v1/penghuni", async (req, res) => {
   try {
-    const pengunjung = await prisma.penghuni.findMany({
-      include: {
-        pengunjung: true,
-      },
-    });
+    const penghuni = await prisma.penghuni.findMany({})
 
-    res.status(200).json(pengunjung);
+    res.status(200).json(penghuni);
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
+});
+
+app.get("/api/v1/penghuni/:id", async (req, res) => {
+  try {
+    const penghuni = await prisma.pengunjung.findUnique({
+      where: {
+        id: req.params.id
+      },
+    })
+
+    res.status(200).json(penghuni);
   } catch (error) {
     res.status(404).json({ error: error });
   }
@@ -114,13 +126,36 @@ app.post("/api/v2/sign-in", async (req, res) => {
 
 app.get("/api/v2/pengunjung", async (req, res) => {
   try {
-    const pengunjung = await prisma.pengunjung.findMany({});
+    const pengunjung = await prisma.pengunjung.findMany({
+      orderBy: {
+        createdAt: "asc",
+      }
+    });
 
     res.status(200).json(pengunjung);
   } catch (error) {
     res.status(404).json({ error: error });
   }
 });
+
+app.put("/api/v2/pengunjung/:id", async (req, res) => {
+  try {
+    const pengunjung = await prisma.pengunjung.update({
+      where: {
+        id: req.params.id,
+      },
+      data: {
+        status: 'ok'
+      }
+    });
+
+    res.status(200).json(pengunjung);
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
+});
+
+
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening at http://localhost:${process.env.PORT}`);
