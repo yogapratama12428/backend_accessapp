@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/v1/penghuni
 
 ### 
-GET http://localhost:3000/api/v1/penghuni/663dc636f5ee747f584b3b22
+GET http://localhost:3000/api/v1/pengunjung/663dc636f5ee747f584b3b22
 ###
 GET http://localhost:3000/api/v2/pengunjung
 ###
@@ -11,15 +11,16 @@ Content-Type: application/json
 
 {
    "name": "budi",
-   "penghuniId": "663c5194991625b77ad755df"
+   "penghuniId": "663c5194991625b77ad755df",
+   "kepentingan": "paket"
 }
 
 ###
-PUT http://localhost:3000/api/v2/pengunjung/663da56bf5ee747f584b3b14
+PUT http://localhost:3000/api/v2/pengunjung/664059450e0349a54ad450f5
 Content-Type: application/json
 
 {
-   "status": "ok"
+   "status": "akses diterima"
 }
 
 ###
@@ -27,11 +28,13 @@ POST http://localhost:3000/api/v2/register
 Content-Type: application/json
 
 {
-    "email": "yoga.pratama.pangetu@gmail.com",
-    "alamat": "L-21",
-    "name": "yoga",
-    "password": "yogapratama"
+    "email": "RifqiRamadhan@gmail.com",
+    "alamat": "L-22",
+    "name": "rifqi",
+    "password": "rifqiramadhan"
 }
 
+### 
+GET http://localhost:3000/api/v1/penghuni/663da56bf5ee747f584b3b14
 
 
