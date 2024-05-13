@@ -22,7 +22,9 @@ app.get("/", async (req, res) => {
 
 app.get("/api/v1/penghuni", async (req, res) => {
   try {
-    const penghuni = await prisma.penghuni.findMany({});
+    const penghuni = await prisma.penghuni.findMany({
+
+    });
 
     res.status(200).json(penghuni);
   } catch (error) {
@@ -68,11 +70,93 @@ app.post("/api/v1/pengunjung", async (req, res) => {
   }
 });
 
-// MOBILE ROUTE
+
+// EDIT USER
+app.put("/api/v1/user/:id", async (req, res) => {
+  const { isVeryfied, isAdmin } = req.body;
+  const { id } = req.params;
+
+  try {
+
+    const isDuplicateAlamat = await prisma.penghuni.findUnique({
+      where: {
+        alamat
+      }
+    })
+
+    if (isDuplicateAlamat) {
+      return res.status(400).json({
+        message: "Alamat sudah terdaftar"
+      })
+    }
+
+    const response = await prisma.penghuni.update({
+      where: {
+        id
+      },
+      data: {
+        isAdmin,
+        isVeryfied
+      },
+    })
+
+    res.status(201).json(response);
+  } catch (error) {
+    res.status(401).json(error);
+  }
+})
+
+// DELETE USER 
+app.delete("/api/v1/user/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.penghuni.delete({
+      where: {
+        id
+      },
+      include: {
+        pengunjung: true
+      }
+    })
+    res.status(201).json({ msg: "berhasil dihapus" })
+  } catch (error) {
+    res.status(401).json(error)
+  }
+})
+
+
+
+// GENERAL ROUTE
 app.post("/api/v2/register", async (req, res) => {
   const { email, name, password, alamat } = req.body;
 
   try {
+
+    const isDuplicateEmail = await prisma.penghuni.findUnique({
+      where: {
+        email
+      }
+    })
+
+    if (isDuplicateEmail) {
+      return res.status(400).json({
+        message: "Email sudah terdaftar"
+      })
+    }
+
+    const isDuplicateAlamat = await prisma.penghuni.findUnique({
+      where: {
+        alamat
+      }
+    })
+
+    if (isDuplicateAlamat) {
+      return res.status(400).json({
+        message: "Alamat sudah terdaftar"
+      })
+    }
+
     const salt = bcrypt.genSaltSync(10);
 
     const hashedPassword = await bcrypt.hashSync(password, salt);
@@ -80,7 +164,6 @@ app.post("/api/v2/register", async (req, res) => {
     const accessToken = jwt.sign(
       {
         email,
-        password,
       },
       "ACCESSTOKEN",
       {
@@ -112,6 +195,7 @@ app.post("/api/v2/sign-in", async (req, res) => {
   const { email, password } = req.body;
 
   try {
+
     const isValidEmail = await prisma.user.findUnique({
       where: {
         email,
@@ -132,14 +216,54 @@ app.post("/api/v2/sign-in", async (req, res) => {
       });
     }
 
+    const accessToken = jwt.sign(
+      {
+        email
+      }, "ACCESSTOKEN", {
+      expiresIn: "1d",
+    })
+
+    await prisma.penghuni.update({
+      where: {
+        email
+      },
+      data: {
+        accessToken: accessToken,
+      }
+    })
+
     res.status(200).json({
       message: "Logged in successfully",
     });
+
   } catch (error) {
     res.status(401).json(error);
   }
 });
 
+app.delete("/api/v2/sign-out", async (req, res) => {
+
+  const { id } = req.params
+  try {
+
+    await prisma.penghuni.update({
+      where: {
+        id
+      },
+      data: {
+        accessToken: null,
+      }
+    })
+
+    res.status(200).json({
+      message: "Logged out successfully",
+    });
+  } catch (error) {
+    res.status(401).json(error);
+  }
+})
+
+//MOBILE ROUTE
 app.get("/api/v2/pengunjung", async (req, res) => {
   try {
     const pengunjung = await prisma.pengunjung.findMany({

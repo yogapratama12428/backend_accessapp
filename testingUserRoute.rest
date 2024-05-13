@@ -1,0 +1,11 @@
+###
+PUT http://localhost:3000/api/v1/user/6641bc4466cfb619a58b0093
+Content-Type: application/json
+
+{
+    "isVeryfied" : true,
+    "isAdmin" : true
+}
+
+### 
+DELETE http://localhost:3000/api/v1/user/663f662cca7b4065385a7453

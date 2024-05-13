@@ -31,7 +31,9 @@ Content-Type: application/json
     "email": "RifqiRamadhan@gmail.com",
     "alamat": "L-22",
     "name": "rifqi",
-    "password": "rifqiramadhan"
+    "password": "rifqiramadhan",
+    "isAdmin": false,
+    "isVeryfied": false
 }
 
 ### 
