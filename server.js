@@ -141,7 +141,8 @@ app.post("/api/v2/register", async (req, res) => {
 
     if (isDuplicateEmail) {
       return res.status(400).json({
-        message: "Email sudah terdaftar"
+        message: "Email sudah terdaftar",
+        error: 1
       })
     }
 
@@ -153,7 +154,8 @@ app.post("/api/v2/register", async (req, res) => {
 
     if (isDuplicateAlamat) {
       return res.status(400).json({
-        message: "Alamat sudah terdaftar"
+        message: "Alamat sudah terdaftar",
+        error: 1
       })
     }
 
@@ -185,9 +187,13 @@ app.post("/api/v2/register", async (req, res) => {
 
     res.status(200).json({
       message: "User created successfully",
+      error: 1
     });
   } catch (error) {
-    res.status(401).json(error);
+    res.status(401).json({
+      message: "some error occurred",
+      error: 1
+    });
   }
 });
 
@@ -196,7 +202,7 @@ app.post("/api/v2/sign-in", async (req, res) => {
 
   try {
 
-    const isValidEmail = await prisma.user.findUnique({
+    const isValidEmail = await prisma.penghuni.findUnique({
       where: {
         email,
       },
@@ -205,6 +211,7 @@ app.post("/api/v2/sign-in", async (req, res) => {
     if (!isValidEmail) {
       return res.status(401).json({
         message: "Invalid email",
+        error: 1
       });
     }
 
@@ -213,6 +220,7 @@ app.post("/api/v2/sign-in", async (req, res) => {
     if (!isValidPassword) {
       return res.status(401).json({
         message: "Invalid password",
+        error: 1
       });
     }
 
@@ -234,10 +242,14 @@ app.post("/api/v2/sign-in", async (req, res) => {
 
     res.status(200).json({
       message: "Logged in successfully",
+      error: 0
     });
 
   } catch (error) {
-    res.status(401).json(error);
+    res.status(401).json({
+      message: "Some Occurred Error",
+      error: 1
+    });
   }
 });
 
@@ -257,9 +269,13 @@ app.delete("/api/v2/sign-out", async (req, res) => {
 
     res.status(200).json({
       message: "Logged out successfully",
+      error: 0
     });
   } catch (error) {
-    res.status(401).json(error);
+    res.status(401).json({
+      message: "Some Occurred Error",
+      error: 1
+    });
   }
 })
 

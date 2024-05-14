@@ -1,6 +1,9 @@
 ### 
 GET http://localhost:3000/api/v1/penghuni
 
+###
+GET backend-accessapp.vercel.app/api/v1/penghuni
+
 ### 
 GET http://localhost:3000/api/v1/pengunjung/663dc636f5ee747f584b3b22
 ###
@@ -28,10 +31,10 @@ POST http://localhost:3000/api/v2/register
 Content-Type: application/json
 
 {
-    "email": "RifqiRamadhan@gmail.com",
-    "alamat": "L-22",
-    "name": "rifqi",
-    "password": "rifqiramadhan",
+    "email": "Harmon@gmail.com",
+    "alamat": "L-23",
+    "name": "harmon",
+    "password": "harmon",
     "isAdmin": false,
     "isVeryfied": false
 }

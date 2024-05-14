@@ -1,0 +1,21 @@
+###
+POST https://backend-accessapp.vercel.app/api/v2/sign-in
+Content-Type: application/json
+
+{
+    "email" : "yoga.pratama.pangetu@gmail.com",
+    "password" : "yogapratama"
+}
+
+###
+POST http://localhost:3000/api/v2/sign-in
+Content-Type: application/json
+
+{
+    "email" : "RifqiRamadhan@gmail.com",
+    "password" : "rifqiramadha"
+}
+
+### 
+### 
+DELETE http://localhost:3000/api/v1/user/663f662cca7b4065385a7453
