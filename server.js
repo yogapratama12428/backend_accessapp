@@ -242,6 +242,7 @@ app.post("/api/v2/sign-in", async (req, res) => {
 
     res.status(200).json({
       message: "Logged in successfully",
+      token: accessToken,
       error: 0
     });
 
