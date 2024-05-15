@@ -23,7 +23,9 @@ app.get("/", async (req, res) => {
 app.get("/api/v1/penghuni", async (req, res) => {
   try {
     const penghuni = await prisma.penghuni.findMany({
-
+      include: {
+        pengunjung: true
+      }
     });
 
     res.status(200).json(penghuni);
@@ -302,7 +304,7 @@ app.get("/api/v2/penghuni/:id", async (req, res) => {
       where: {
         id: req.params.id,
       },
-      select: {
+      include: {
         pengunjung: {
           orderBy: {
             createdAt: "desc",
