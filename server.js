@@ -48,7 +48,7 @@ app.get("/api/v1/pengunjung/:id", async (req, res) => {
 
 // status --> [memanggil, akses diterima, akses ditolak]
 app.post("/api/v1/pengunjung", async (req, res) => {
-  const { name, penghuniId, kepentingan, status } = req.body;
+  const { name, penghuniId, kepentingan, status, isCalled } = req.body;
 
   try {
     const pengunjung = await prisma.pengunjung.create({
@@ -57,6 +57,7 @@ app.post("/api/v1/pengunjung", async (req, res) => {
         status,
         kepentingan,
         penghuniId,
+        isCalled,
       },
     });
 
@@ -124,7 +125,6 @@ app.delete("/api/v1/user/:id", async (req, res) => {
     res.status(401).json(error)
   }
 })
-
 
 
 // GENERAL ROUTE
@@ -295,7 +295,7 @@ app.get("/api/v2/pengunjung", async (req, res) => {
   }
 });
 
-app.get("/api/v1/penghuni/:id", async (req, res) => {
+app.get("/api/v2/penghuni/:id", async (req, res) => {
   try {
     const penghuni = await prisma.penghuni.findUnique({
       where: {
@@ -316,8 +316,27 @@ app.get("/api/v1/penghuni/:id", async (req, res) => {
   }
 });
 
+//route --> panggilan
+app.get("/api/v2/panggil/pengunjung/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const panggil = await prisma.pengunjung.findMany({
+      where: {
+        isCalled: true,
+        penghuniId: id
+      },
+    })
+
+    res.status(200).json(panggil)
+
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
+})
+
 app.put("/api/v2/pengunjung/:id", async (req, res) => {
-  const { status } = req.body;
+  const { status, isCalled } = req.body;
 
   try {
     const pengunjung = await prisma.pengunjung.update({
@@ -325,7 +344,7 @@ app.put("/api/v2/pengunjung/:id", async (req, res) => {
         id: req.params.id,
       },
       data: {
-        status,
+        isCalled
       },
     });
 

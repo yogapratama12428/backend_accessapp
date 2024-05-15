@@ -14,24 +14,25 @@ datasource db {
 }
 
 model Penghuni {
-  id         String       @id @default(auto()) @map("_id") @db.ObjectId
-  email      String       @unique
-  alamat     String       @unique
-  accessToken String?      
-  name       String?
-  password   String
-  pengunjung Pengunjung[]
-  isAdmin    Boolean?
-  isVeryfied Boolean?
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  email       String       @unique
+  alamat      String       @unique
+  accessToken String?
+  name        String?
+  password    String
+  pengunjung  Pengunjung[]
+  isAdmin     Boolean?
+  isVeryfied  Boolean?
 
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
 }
 
 model Pengunjung {
-  id     String  @id @default(auto()) @map("_id") @db.ObjectId
-  name   String?
-  status String?
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String?
+  status      String?
+  isCalled    Boolean?
   kepentingan String?
 
   penghuniId String?   @db.ObjectId
