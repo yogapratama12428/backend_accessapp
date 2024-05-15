@@ -127,7 +127,7 @@ app.delete("/api/v1/user/:id", async (req, res) => {
 })
 
 
-// GENERAL ROUTE
+// GENERAL ROUTE REGISTER - LOGIN- LOGOUT
 app.post("/api/v2/register", async (req, res) => {
   const { email, name, password, alamat } = req.body;
 
@@ -243,6 +243,7 @@ app.post("/api/v2/sign-in", async (req, res) => {
     res.status(200).json({
       message: "Logged in successfully",
       token: accessToken,
+      id: isValidEmail.id,
       error: 0
     });
 
