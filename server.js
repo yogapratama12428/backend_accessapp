@@ -302,7 +302,7 @@ app.get("/api/v2/penghuni/:id", async (req, res) => {
       where: {
         id: req.params.id,
       },
-      include: {
+      select: {
         pengunjung: {
           orderBy: {
             createdAt: "desc",
@@ -322,7 +322,7 @@ app.get("/api/v2/panggil/pengunjung/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const panggil = await prisma.pengunjung.findMany({
+    const panggil = await prisma.pengunjung.findFirst({
       where: {
         isCalled: true,
         penghuniId: id
