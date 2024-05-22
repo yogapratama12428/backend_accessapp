@@ -2,4 +2,4 @@
 GET http://localhost:3000/api/v2/panggil/pengunjung/664326c467cbd790663ff940
 
 ### 
-GET http://localhost:3000/api/v2/penghuni/663da56bf5ee747f584b3b14
+GET http://localhost:3000/api/v2/penghuni/664326c467cbd790663ff940

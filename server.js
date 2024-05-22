@@ -50,7 +50,7 @@ app.get("/api/v1/pengunjung/:id", async (req, res) => {
 
 // status --> [memanggil, akses diterima, akses ditolak]
 app.post("/api/v1/pengunjung", async (req, res) => {
-  const { name, penghuniId, kepentingan, status, isCalled } = req.body;
+  const { name, penghuniId, kepentingan, status, isCalled, isOut } = req.body;
 
   try {
     const pengunjung = await prisma.pengunjung.create({
@@ -60,6 +60,7 @@ app.post("/api/v1/pengunjung", async (req, res) => {
         kepentingan,
         penghuniId,
         isCalled,
+        isOut
       },
     });
 
@@ -72,7 +73,6 @@ app.post("/api/v1/pengunjung", async (req, res) => {
     });
   }
 });
-
 
 // EDIT USER
 app.put("/api/v1/user/:id", async (req, res) => {
@@ -131,7 +131,7 @@ app.delete("/api/v1/user/:id", async (req, res) => {
 
 // GENERAL ROUTE REGISTER - LOGIN- LOGOUT
 app.post("/api/v2/register", async (req, res) => {
-  const { email, name, password, alamat } = req.body;
+  const { email, name, password, alamat, isOut, isAdmin, isVeryfied } = req.body;
 
   try {
 
@@ -181,15 +181,15 @@ app.post("/api/v2/register", async (req, res) => {
         name,
         alamat,
         password: hashedPassword,
-        isAdmin: false,
-        isVeryfied: false,
+        isAdmin,
+        isVeryfied,
         accessToken: accessToken,
       },
     });
 
     res.status(200).json({
       message: "User created successfully",
-      error: 1
+      error: 0
     });
   } catch (error) {
     res.status(401).json({
@@ -347,7 +347,8 @@ app.put("/api/v2/pengunjung/:id", async (req, res) => {
         id: req.params.id,
       },
       data: {
-        isCalled
+        isCalled,
+        status
       },
     });
 

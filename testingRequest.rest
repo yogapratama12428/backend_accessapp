@@ -19,11 +19,11 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/api/v2/pengunjung/664059450e0349a54ad450f5
+PUT http://localhost:3000/api/v2/pengunjung/66441d126d9737843a3f0864
 Content-Type: application/json
 
 {
-   "status": "akses diterima"
+   "isCalled": true
 }
 
 ###
@@ -31,10 +31,10 @@ POST http://localhost:3000/api/v2/register
 Content-Type: application/json
 
 {
-    "email": "Harmon@gmail.com",
-    "alamat": "L-23",
-    "name": "harmon",
-    "password": "harmon",
+    "email": "Danu@gmail.com",
+    "alamat": "L-24",
+    "name": "Danu",
+    "password": "Danu",
     "isAdmin": false,
     "isVeryfied": false
 }

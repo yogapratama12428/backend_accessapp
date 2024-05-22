@@ -33,6 +33,7 @@ model Pengunjung {
   name        String?
   status      String?
   isCalled    Boolean?
+  isOut       Boolean?
   kepentingan String?
 
   penghuniId String?   @db.ObjectId
