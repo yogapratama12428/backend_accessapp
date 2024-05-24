@@ -355,6 +355,18 @@ app.put("/api/v2/pengunjung/:id", async (req, res) => {
   }
 });
 
+app.get("/api/v2/penghuni", async (req, res) => {
+  try {
+    const penghuni = await prisma.penghuni.findMany({});
+
+    res.status(200).json({
+      penghuni: penghuni,
+    });
+  } catch (error) {
+    res.status(404).json({ error: error });
+  }
+});
+
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening at http://localhost:${process.env.PORT}`);
 });
