@@ -80,18 +80,6 @@ app.put("/api/v1/user/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const isDuplicateAlamat = await prisma.penghuni.findUnique({
-      where: {
-        alamat,
-      },
-    });
-
-    if (isDuplicateAlamat) {
-      return res.status(400).json({
-        message: "Alamat sudah terdaftar",
-      });
-    }
-
     const response = await prisma.penghuni.update({
       where: {
         id,
