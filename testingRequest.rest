@@ -19,11 +19,12 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/api/v2/pengunjung/66441d126d9737843a3f0864
+PUT http://localhost:3000/api/v2/pengunjung/664dc4d4be01dae4c5c25103
 Content-Type: application/json
 
 {
-   "isCalled": true
+   "isCalled": false,
+   "status": "akses diterima"
 }
 
 ###
