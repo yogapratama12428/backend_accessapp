@@ -337,7 +337,16 @@ app.put("/api/v2/pengunjung/:id", async (req, res) => {
       },
     });
 
-    res.status(200).json(pengunjung);
+    const isUpdate = await prisma.aktuator.update({
+      where: {
+        id: "665d5d910d74066b431849a4"
+      },
+      data: {
+        isAkses: true
+      },
+    })
+
+    res.status(200).json({ ...pengunjung, isUpdate });
   } catch (error) {
     res.status(404).json({ error: error });
   }
@@ -354,6 +363,57 @@ app.get("/api/v2/penghuni", async (req, res) => {
     res.status(404).json({ error: error });
   }
 });
+
+//put aktuator 
+app.put("/api/v2/aktuator/:id", async (req, res) => {
+  const { id } = req.params;
+  const { isAkses } = req.body;
+  try {
+    await prisma.aktuator.update({
+      where: {
+        id
+      },
+      data: {
+        isAkses
+      }
+    })
+    res.status(200).json({
+      message: "berhasil"
+    })
+  } catch (error) {
+    res.status(404).json({
+      message: "gagal"
+    })
+  }
+})
+//get aktuator 
+app.get("/api/v2/aktuator", async (req, res) => {
+  try {
+    const response = await prisma.aktuator.findFirst({})
+    res.status(200).json(response)
+  } catch (error) {
+    res.status(404).json({
+      message: "gagal"
+    })
+  }
+})
+//post aktuator
+app.post("/api/v2/aktuator", async (req, res) => {
+  try {
+    await prisma.aktuator.create({
+      data: {
+        isAkses: true
+      }
+    })
+    res.status(200).json({
+      message: "berhasil"
+    })
+  } catch (error) {
+    res.status(404).json({
+      message: "gagal"
+    })
+  }
+})
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening at http://localhost:${process.env.PORT}`);
