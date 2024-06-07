@@ -378,9 +378,7 @@ app.put("/api/v2/aktuator/:id", async (req, res) => {
         isAkses,
       },
     });
-    res.status(200).json({
-      message: "berhasil",
-    });
+    res.status(200).json(response);
   } catch (error) {
     res.status(404).json({
       message: "gagal",
