@@ -9,6 +9,7 @@ const app = express();
 
 const prisma = new PrismaClient();
 
+//test
 dotenv.config();
 
 app.use(express.json());
@@ -339,12 +340,12 @@ app.put("/api/v2/pengunjung/:id", async (req, res) => {
 
     const isUpdate = await prisma.aktuator.update({
       where: {
-        id: "665d5d910d74066b431849a4"
+        id: "665d5d910d74066b431849a4",
       },
       data: {
-        isAkses: true
+        isAkses: true,
       },
-    })
+    });
 
     res.status(200).json({ ...pengunjung, isUpdate });
   } catch (error) {
@@ -364,54 +365,56 @@ app.get("/api/v2/penghuni", async (req, res) => {
   }
 });
 
-//put aktuator 
+//put aktuator
 app.put("/api/v2/aktuator/:id", async (req, res) => {
   const { id } = req.params;
   const { isAkses } = req.body;
   try {
     const response = await prisma.aktuator.update({
       where: {
-        id
+        id,
       },
       data: {
-        isAkses
-      }
-    })
-    res.status(200).json(response)
+        isAkses,
+      },
+    });
+    res.status(200).json({
+      message: "berhasil",
+    });
   } catch (error) {
     res.status(404).json({
-      message: "gagal"
-    })
+      message: "gagal",
+    });
   }
-})
-//get aktuator 
+});
+//get aktuator
 app.get("/api/v2/aktuator", async (req, res) => {
   try {
-    const response = await prisma.aktuator.findFirst({})
-    res.status(200).json(response)
+    const response = await prisma.aktuator.findFirst({});
+    res.status(200).json(response);
   } catch (error) {
     res.status(404).json({
-      message: "gagal"
-    })
+      message: "gagal",
+    });
   }
-})
+});
 //post aktuator
 app.post("/api/v2/aktuator", async (req, res) => {
   try {
     await prisma.aktuator.create({
       data: {
-        isAkses: true
-      }
-    })
+        isAkses: true,
+      },
+    });
     res.status(200).json({
-      message: "berhasil"
-    })
+      message: "berhasil",
+    });
   } catch (error) {
     res.status(404).json({
-      message: "gagal"
-    })
+      message: "gagal",
+    });
   }
-})
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening at http://localhost:${process.env.PORT}`);
