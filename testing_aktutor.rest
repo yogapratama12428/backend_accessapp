@@ -1,13 +1,13 @@
 ###
-GET http://localhost:3000/api/v2/aktuator
+GET https://backend-accessapp.vercel.app/api/v2/aktuator/
 
 ###
 POST http://localhost:3000/api/v2/aktuator
 
 ### 
-PUT http://localhost:3000/api/v2/aktuator/665d5d910d74066b431849a4
+PUT https://backend-accessapp.vercel.app/api/v2/aktuator/665d5d910d74066b431849a4
 Content-Type: application/json
 
 {
-    "isAkses": false
+    "isAkses": true
 }

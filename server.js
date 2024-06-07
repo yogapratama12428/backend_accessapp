@@ -369,7 +369,7 @@ app.put("/api/v2/aktuator/:id", async (req, res) => {
   const { id } = req.params;
   const { isAkses } = req.body;
   try {
-    await prisma.aktuator.update({
+    const response = await prisma.aktuator.update({
       where: {
         id
       },
@@ -377,9 +377,7 @@ app.put("/api/v2/aktuator/:id", async (req, res) => {
         isAkses
       }
     })
-    res.status(200).json({
-      message: "berhasil"
-    })
+    res.status(200).json(response)
   } catch (error) {
     res.status(404).json({
       message: "gagal"
